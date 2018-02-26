@@ -65,4 +65,39 @@ function math(opr, op1, op2) {
   }
 }
 
-console.log(postfixEval('17 10 + 3 * 9 /'));
+function infixToPostfix(exp) {
+  const opStack = [];
+  const output = [];
+  const infixArr = exp.split(' ');
+  const operands = 'ABCDEFG';
+  const operators = ['*','/','+','-','('];
+
+  for (let i = 0; i < infixArr.length; i++) {
+    const token = infixArr[i];
+    if (operands.includes(token)) {
+      output.push(token);
+    } else if (token === '(') {
+      opStack.push(token);
+    } else if (token === ')') {
+      let opToken = opStack.pop();
+      while (opToken !== '(') {
+        output.push(opToken);
+        opToken = opStack.pop();
+      }
+    } else if (operators.includes(token)) {
+      while (opStack.length > 0 && operators.indexOf(token) >= operators.indexOf(opStack[opStack.length - 1])) {
+        output.push(opStack.pop());
+      }
+      opStack.push(token)
+    }
+  }
+  if (opStack.length > 0) {
+    for (let i = 0; i < opStack.length + 1; i++) {
+      output.push(opStack.pop());
+    }
+  }
+  return output.join(' ');
+}
+
+console.log(infixToPostfix('A * B + C * D'));
+console.log(infixToPostfix('( A + B ) * C - ( D - E ) * ( F + G )'));

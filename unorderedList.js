@@ -125,4 +125,7 @@ UnorderedList.prototype.pop = function() {
   }
 }
 
-module.exports = UnorderedList;
+module.exports = {
+  Node,
+  UnorderedList,
+};
