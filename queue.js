@@ -90,7 +90,52 @@ function tasksEverySecond(students, numSeconds) {
   return numSeconds / printJobs;
 }
 
-for (let i = 0; i < 10; i++) {
-  console.log(simulation(20, 3600, 10));
-}
+// for (let i = 0; i < 10; i++) {
+//   console.log(simulation(20, 3600, 10));
+// }
 // -----------------------------------------------------------------------------
+function reverseFirstKElements(k, queue) {
+  const kStack = [];
+  for (let i = 0; i < queue.length - k; i++) {
+    const item = queue.pop();
+    queue.unshift(item);
+  }
+  for (let i = 0; i < k; i++) {
+    const item = queue.pop();
+    kStack.push(item);
+  }
+  while (kStack.length > 0) {
+    const item = kStack.pop();
+    queue.unshift(item);
+  }
+  return queue;
+}
+
+// console.log(reverseFirstKElements(6, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]))
+// console.log(reverseFirstKElements(5, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]))
+// console.log(reverseFirstKElements(9, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]))
+
+function circularTour(data) {
+  let totalGas = 0;
+  let totalDistance = 0;
+  let i = 0;
+  let originalIndex = 0;
+  let currentRotations = 0;
+  while (i < data.length - 1 && currentRotations !== data.length) {
+    totalGas += data[i].g;
+    totalDistance += data[i].d;
+    if (totalGas - totalDistance < 0) {
+      totalGas = 0;
+      totalDistance = 0;
+      data.push(data.shift());
+      i = 0;
+      originalIndex += 1;
+    } else {
+      i += 1;
+    }
+    currentRotations += 1;
+  }
+  return originalIndex;
+}
+
+console.log(circularTour([{g: 4, d: 6}, {g: 6, d: 5}, {g: 7, d: 3}, {g: 4, d: 5}]))

@@ -99,5 +99,23 @@ function infixToPostfix(exp) {
   return output.join(' ');
 }
 
-console.log(infixToPostfix('A * B + C * D'));
-console.log(infixToPostfix('( A + B ) * C - ( D - E ) * ( F + G )'));
+// console.log(infixToPostfix('A * B + C * D'));
+// console.log(infixToPostfix('( A + B ) * C - ( D - E ) * ( F + G )'));
+
+function nextGreatestElement(arr) {
+  const output = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i; j < arr.length; j++) {
+      if (arr[i] < arr[j]) {
+        output.push(arr[j]);
+        break;
+      } else if (j === arr.length -1) {
+        output.push(-1);
+      }
+    }
+  };
+  return output;
+}
+
+// console.log(nextGreatestElement([4, 5, 2, 25]))
+// console.log(nextGreatestElement([13, 7, 6, 12]))
